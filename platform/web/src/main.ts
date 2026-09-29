@@ -51,7 +51,10 @@ async function reloadOnceForCrossOriginIsolation(): Promise<boolean> {
   if (sessionStorage.getItem("voland-coi-reload-attempted")) return false;
   sessionStorage.setItem("voland-coi-reload-attempted", "1");
   if ("serviceWorker" in navigator) {
-    await navigator.serviceWorker.ready;
+    await Promise.race([
+      navigator.serviceWorker.ready,
+      new Promise<void>(resolve => setTimeout(resolve, 3000)),
+    ]);
   }
   location.reload();
   return true;

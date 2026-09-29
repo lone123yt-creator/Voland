@@ -31,13 +31,16 @@ const crossOriginIsolationHeaders = {
   "Content-Security-Policy":     "frame-ancestors 'none'",
 };
 
+// Dev server headers: omitted in dev so the Base44 preview iframe can load
+// the page. crossOriginIsolated requires COOP/COEP on the top-level context
+// too, which the preview iframe can't provide. Production (preview/build)
+// keeps the full cross-origin isolation headers.
 export default defineConfig({
   plugins: [solid()],
   resolve: {
     alias,
   },
   server: {
-    headers: crossOriginIsolationHeaders,
     port:    5173,
   },
   preview: {

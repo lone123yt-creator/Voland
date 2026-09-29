@@ -23,6 +23,7 @@ compile_commands.json
 
 # Node / web
 node_modules/
+platform/web/public/core/
 dist/
 .vite/
 test-results/
